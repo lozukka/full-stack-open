@@ -12,21 +12,26 @@ const Statistics = ({ feedback }) => {
 
   return (
     <>
-      <StatisticsLine text="good" value={feedback.good} />
-      <StatisticsLine text="neutral" value={feedback.neutral} />
-      <StatisticsLine text="bad" value={feedback.bad} />
-      <StatisticsLine text="all" value={all} />
-      <StatisticsLine text="average" value={average} />
-      <StatisticsLine text="positive" value={`${positive} %`} />
+      <table>
+        <tbody>
+          <StatisticsLine text="good" value={feedback.good} />
+          <StatisticsLine text="neutral" value={feedback.neutral} />
+          <StatisticsLine text="bad" value={feedback.bad} />
+          <StatisticsLine text="all" value={all} />
+          <StatisticsLine text="average" value={average} />
+          <StatisticsLine text="positive" value={`${positive} %`} />
+        </tbody>
+      </table>
     </>
   );
 };
 
 const Button = ({ onClick, text }) => <button onClick={onClick}>{text}</button>;
 const StatisticsLine = ({ text, value }) => (
-  <p>
-    {text} {value}
-  </p>
+  <tr>
+    <td>{text}</td>
+    <td>{value}</td>
+  </tr>
 );
 
 const App = () => {
@@ -69,9 +74,8 @@ const App = () => {
         <Button onClick={handleBadClick} text="bad" />
       </div>
       <h2>statistics</h2>
-      <div>
-        <Statistics feedback={feedback} />
-      </div>
+
+      <Statistics feedback={feedback} />
     </>
   );
 };
