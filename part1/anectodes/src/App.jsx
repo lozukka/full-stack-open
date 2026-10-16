@@ -24,19 +24,24 @@ const App = () => {
   };
 
   const handleVote = () => {
-    const newVotes = {
-      ...votes,
-      [selected]: votes[selected] + 1,
-    };
+    const newVotes = [...votes];
+    newVotes[selected] += 1;
     setVotes(newVotes);
   };
 
+  const maxVotes = Math.max(...votes);
+  const mostVotedIndex = votes.indexOf(maxVotes);
+
   return (
     <>
+      <h1>Anecdote of the day</h1>
       <div>{anecdotes[selected]}</div>
       <p>{votes[selected]}</p>
       <Button onClick={handleVote} text="vote" />
       <Button onClick={handleClick} text="next anecdote" />
+      <h2>Anecdote with most votes</h2>
+      <p>{anecdotes[mostVotedIndex]}</p>
+      <p>{maxVotes} votes</p>
     </>
   );
 };
