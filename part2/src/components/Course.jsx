@@ -17,7 +17,7 @@ const Part = (props) => (
 );
 
 const Total = (props) => {
-  var totalExercise = props.total.reduce(function (acc, parts) {
+  const totalExercise = props.total.reduce((acc, parts) => {
     return acc + parts.exercises;
   }, 0);
   console.log(totalExercise);
