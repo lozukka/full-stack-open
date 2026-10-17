@@ -6,13 +6,21 @@ const App = () => {
 
   const addPerson = (event) => {
     event.preventDefault();
+
+    const nameExists = persons.some((person) => person.name === newName);
+
+    if (nameExists) {
+      alert(`${newName} is already added to phonebook`);
+      return;
+    }
+
     const personObject = {
       name: newName,
       id: String(persons.length + 1),
     };
+
     setPersons(persons.concat(personObject));
     setNewName("");
-    console.log("button clicked", event.target);
   };
 
   const handleInputChange = (event) => {
@@ -35,7 +43,7 @@ const App = () => {
       <div>debug: {newName}</div>
       <div>
         {persons.map((person) => (
-          <p key={person}>{person.name}</p>
+          <p key={person.name}>{person.name}</p>
         ))}
       </div>
     </div>
