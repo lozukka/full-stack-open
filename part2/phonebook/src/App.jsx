@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import personService from "./services/persons";
 
 const Filter = ({ value, onChange }) => {
@@ -32,12 +31,13 @@ const PersonForm = ({
   );
 };
 
-const Persons = ({ personsToShow }) => {
+const Persons = ({ personsToShow, removePerson }) => {
   return (
     <div>
       {personsToShow.map((person) => (
-        <p key={person.name}>
-          {person.name} {person.number}
+        <p key={person.id}>
+          {person.name} {person.number}{" "}
+          <button onClick={() => removePerson(person.id)}>delete</button>
         </p>
       ))}
     </div>
@@ -72,7 +72,6 @@ const App = () => {
     const personObject = {
       name: newName,
       number: newNumber,
-      id: String(persons.length + 1),
     };
 
     personService.create(personObject).then((response) => {
@@ -97,6 +96,19 @@ const App = () => {
     setNewFilter(event.target.value);
   };
 
+  const removePerson = (id) => {
+    console.log("person " + id + " needs to be removed");
+    const person = persons.find((p) => p.id === id);
+
+    if (!window.confirm(`Delete ${person.name}?`)) {
+      return;
+    }
+
+    personService.remove(id).then(() => {
+      setPersons(persons.filter((p) => p.id !== id));
+    });
+  };
+
   return (
     <div>
       <h2>Phonebook</h2>
@@ -112,7 +124,7 @@ const App = () => {
         handleNumberChange={handleNumberChange}
       />
       <h2>Numbers</h2>
-      <Persons personsToShow={personsToShow} />
+      <Persons personsToShow={personsToShow} removePerson={removePerson} />
     </div>
   );
 };
