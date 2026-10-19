@@ -29,6 +29,11 @@
       "name": "elsa",
       "number": "4567",
       "id": "M4ebxTAGMWs"
+    },
+    {
+      "name": "ida",
+      "number": "789",
+      "id": "t2IprOdf_XM"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
