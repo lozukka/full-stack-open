@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import personService from "./services/persons";
+import Notification from "../components/Notification";
+import "./index.css";
 
 const Filter = ({ value, onChange }) => {
   return (
@@ -49,6 +51,8 @@ const App = () => {
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [newFilter, setNewFilter] = useState("");
+  const [newMessage, setNewMessasge] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const hook = () => {
     console.log("effect");
@@ -85,6 +89,20 @@ const App = () => {
           );
           setNewName("");
           setNewNumber("");
+
+          setNewMessasge(`${response.data.name} number replaced.`);
+          setTimeout(() => {
+            setNewMessasge(null);
+          }, 5000);
+        })
+        .catch(() => {
+          setErrorMessage(
+            `Information of ${existingPerson.name} has already been removed from server`,
+          );
+          setPersons(persons.filter((p) => p.id !== existingPerson.id));
+          setTimeout(() => {
+            setErrorMessage(null);
+          }, 5000);
         });
       return;
     }
@@ -95,6 +113,11 @@ const App = () => {
       setPersons(persons.concat(response.data));
       setNewName("");
       setNewNumber("");
+
+      setNewMessasge(`${response.data.name} added to phonebook.`);
+      setTimeout(() => {
+        setNewMessasge(null);
+      }, 50000);
     });
   };
 
@@ -128,6 +151,8 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={newMessage} type="success" />
+      <Notification message={errorMessage} type="error" />
       <div>
         <Filter value={newFilter} onChange={handleFilterChange} />
       </div>

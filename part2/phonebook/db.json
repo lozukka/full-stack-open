@@ -6,16 +6,6 @@
       "id": "3"
     },
     {
-      "name": "maija",
-      "number": "5678",
-      "id": "XVDPozvWPgw"
-    },
-    {
-      "name": "elsa",
-      "number": "4567",
-      "id": "M4ebxTAGMWs"
-    },
-    {
       "name": "Arto Hellas",
       "number": "040-123456",
       "id": "bVOjiZfErUE"
@@ -26,9 +16,34 @@
       "id": "TXyl-gT2j34"
     },
     {
-      "name": "Maija",
+      "name": "test",
+      "number": "123456",
+      "id": "LCFOdS0ZMY0"
+    },
+    {
+      "name": "tesfse",
+      "number": "34235",
+      "id": "uA7zD5_D7jI"
+    },
+    {
+      "name": "dfbdr",
+      "number": "3242",
+      "id": "k49LKOLJyWk"
+    },
+    {
+      "name": "tert",
+      "number": "456y4",
+      "id": "IkroAWA3jc4"
+    },
+    {
+      "name": "tyu",
       "number": "1234",
-      "id": "jfTYGKIsB5g"
+      "id": "t0sXiHaMSxg"
+    },
+    {
+      "name": "thrdth ",
+      "number": "sgae",
+      "id": "e44ObG4DvqM"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
