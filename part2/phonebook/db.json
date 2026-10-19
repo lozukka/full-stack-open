@@ -7,7 +7,7 @@
     },
     {
       "name": "maija",
-      "number": "1234",
+      "number": "5678",
       "id": "XVDPozvWPgw"
     },
     {
@@ -16,9 +16,19 @@
       "id": "M4ebxTAGMWs"
     },
     {
-      "name": "ida",
-      "number": "789",
-      "id": "t2IprOdf_XM"
+      "name": "Arto Hellas",
+      "number": "040-123456",
+      "id": "bVOjiZfErUE"
+    },
+    {
+      "name": "Ada Lovelace",
+      "number": "39-44-5323523",
+      "id": "TXyl-gT2j34"
+    },
+    {
+      "name": "Maija",
+      "number": "1234",
+      "id": "jfTYGKIsB5g"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

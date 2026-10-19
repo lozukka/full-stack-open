@@ -9,6 +9,10 @@ const create = (newObject) => {
   return axios.post(baseURL, newObject);
 };
 
+const replace = (id, newObject) => {
+  return axios.put(`${baseURL}/${id}`, newObject);
+};
+
 const remove = (id) => {
   return axios.delete(`${baseURL}/${id}`);
 };
@@ -16,5 +20,6 @@ const remove = (id) => {
 export default {
   getAll: getAll,
   create: create,
+  replace: replace,
   remove: remove,
 };
