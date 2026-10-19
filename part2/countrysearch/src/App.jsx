@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import countryService from "./services/countries";
+import weatherService from "./services/weather";
 
 const Filter = ({ value, onChange }) => {
   return (
@@ -13,27 +14,9 @@ const Countries = ({ countries, showCountry }) => {
   if (countries.length > 10) {
     return <p>Too many matches, specify another filter</p>;
   }
-  if (countries.length === 1) {
-    const country = countries[0];
 
-    return (
-      <div>
-        <h1>{country.name.common}</h1>
-        <div>
-          <p>Capital: {country.capital}</p>
-          <p>Area: {country.area}</p>
-        </div>
-        <h2>Languages</h2>
-        <ul>
-          {Object.values(country.languages).map((language) => (
-            <li key={language}>{language}</li>
-          ))}
-        </ul>
-        <div>
-          <img src={country.flags.svg} alt={country.flags.alt} width={200} />
-        </div>
-      </div>
-    );
+  if (countries.length === 1) {
+    return <Country country={countries[0]} />;
   }
 
   return (
@@ -54,6 +37,44 @@ const Countries = ({ countries, showCountry }) => {
   );
 };
 
+const Country = ({ country }) => {
+  const [weather, setWeather] = useState(null);
+
+  const [latitude, longitude] = country.latlng;
+
+  useEffect(() => {
+    weatherService.getWeather(latitude, longitude).then((response) => {
+      setWeather(response.data.current);
+    });
+  }, [latitude, longitude]);
+
+  return (
+    <div>
+      <h1>{country.name.common}</h1>
+      <div>
+        <p>Capital: {country.capital}</p>
+        <p>Area: {country.area}</p>
+      </div>
+      <h2>Languages</h2>
+      <ul>
+        {Object.values(country.languages).map((language) => (
+          <li key={language}>{language}</li>
+        ))}
+      </ul>
+      <div>
+        <img src={country.flags.svg} alt={country.flags.alt} width={200} />
+      </div>
+
+      {weather !== null && (
+        <div>
+          <h2>Weather in {country.capital}</h2>
+          <p>Temperature: {weather.temperature_2m} °C</p>
+          <p>Wind: {weather.wind_speed_10m} m/s</p>
+        </div>
+      )}
+    </div>
+  );
+};
 const App = () => {
   const [countries, setCountries] = useState([]);
   const [newFilter, setNewFilter] = useState("");
