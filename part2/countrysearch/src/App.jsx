@@ -9,7 +9,7 @@ const Filter = ({ value, onChange }) => {
   );
 };
 
-const Countries = ({ countries }) => {
+const Countries = ({ countries, showCountry }) => {
   if (countries.length > 10) {
     return <p>Too many matches, specify another filter</p>;
   }
@@ -39,7 +39,16 @@ const Countries = ({ countries }) => {
   return (
     <div>
       {countries.map((country) => (
-        <p key={country.cca3}>{country.name.common}</p>
+        <p key={country.cca3}>
+          {country.name.common}{" "}
+          <button
+            onClick={() => {
+              showCountry(country.name.common);
+            }}
+          >
+            Show
+          </button>
+        </p>
       ))}
     </div>
   );
@@ -62,11 +71,14 @@ const App = () => {
   const handleFilterChange = (event) => {
     setNewFilter(event.target.value);
   };
+  const showCountry = (name) => {
+    setNewFilter(name);
+  };
 
   return (
     <>
       <Filter value={newFilter} onChange={handleFilterChange} />
-      <Countries countries={countriesToShow} />
+      <Countries countries={countriesToShow} showCountry={showCountry} />
     </>
   );
 };
