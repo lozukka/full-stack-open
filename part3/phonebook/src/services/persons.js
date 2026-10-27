@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseURL = "https://full-stack-open-cl8x.onrender.com/api/persons";
+const baseURL = "/api/persons";
 
 const getAll = () => {
   return axios.get(baseURL);
