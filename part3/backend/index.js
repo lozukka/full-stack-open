@@ -51,7 +51,7 @@ app.use(
 
 app.use(cors());
 
-// --- Routes
+// --- Routes, uses database
 
 app.get("/api/persons", (request, response, next) => {
   Person.find({})
