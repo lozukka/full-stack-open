@@ -112,6 +112,25 @@ app.post("/api/persons", (request, response, next) => {
     .catch((error) => next(error));
 });
 
+app.put("/api/persons/:id", (request, response, next) => {
+  const { name, number } = request.body;
+
+  Person.findById(request.params.id)
+    .then((person) => {
+      if (!person) {
+        return response.status(404).end();
+      }
+
+      person.name = name;
+      person.number = number;
+
+      return person.save().then((updatePerson) => {
+        response.json(updatePerson);
+      });
+    })
+    .catch((error) => next(error));
+});
+
 // --- Error handling
 
 const unknownEndpoint = (request, response) => {
