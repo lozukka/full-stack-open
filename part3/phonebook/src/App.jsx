@@ -95,11 +95,15 @@ const App = () => {
             setNewMessasge(null);
           }, 5000);
         })
-        .catch(() => {
-          setErrorMessage(
-            `Information of ${existingPerson.name} has already been removed from server`,
-          );
-          setPersons(persons.filter((p) => p.id !== existingPerson.id));
+        .catch((error) => {
+          if (error.response.status === 400) {
+            setErrorMessage(
+              `Information of ${existingPerson.name} has already been removed from server`,
+            );
+            setPersons(persons.filter((p) => p.id !== existingPerson.id));
+          } else {
+            setErrorMessage(error.response.data.error);
+          }
           setTimeout(() => {
             setErrorMessage(null);
           }, 5000);
@@ -109,16 +113,24 @@ const App = () => {
 
     const personObject = { name: newName, number: newNumber };
 
-    personService.create(personObject).then((response) => {
-      setPersons(persons.concat(response.data));
-      setNewName("");
-      setNewNumber("");
+    personService
+      .create(personObject)
+      .then((response) => {
+        setPersons(persons.concat(response.data));
+        setNewName("");
+        setNewNumber("");
 
-      setNewMessasge(`${response.data.name} added to phonebook.`);
-      setTimeout(() => {
-        setNewMessasge(null);
-      }, 50000);
-    });
+        setNewMessasge(`${response.data.name} added to phonebook.`);
+        setTimeout(() => {
+          setNewMessasge(null);
+        }, 50000);
+      })
+      .catch((error) => {
+        setErrorMessage(error.response.data.error);
+        setTimeout(() => {
+          setErrorMessage(null);
+        }, 5000);
+      });
   };
 
   const personsToShow = persons.filter((person) =>
