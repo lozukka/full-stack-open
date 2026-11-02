@@ -96,7 +96,7 @@ const App = () => {
           }, 5000);
         })
         .catch((error) => {
-          if (error.response.status === 400) {
+          if (error.response && error.response.status === 404) {
             setErrorMessage(
               `Information of ${existingPerson.name} has already been removed from server`,
             );
